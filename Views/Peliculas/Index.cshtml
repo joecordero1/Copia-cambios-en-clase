@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Final_Cordero_Raura.Models.Pelicula>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Peliculas disponibles</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Agregar película</a>
+</p>
+<form asp-controller="Peliculas" asp-action="Index">
+    <p>
+        Buscar: <input type="text" name="Buscar" class="form-text" />
+        <input type="submit" value="Buscar" class="btn btn-sm btn-dark" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-filtro="@ViewData["FiltroNombre"]">
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-filtro="@ViewData["FiltroFecha"]">
+                    @Html.DisplayNameFor(model => model.anio)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.anio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Poster)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.Raw(item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.anio)
+            </td>
+            <td>
+                    <!--Aqui cambie para que muestre foto-->
+                    <img src="@item.Poster" alt="@item.Nombre" style="max-width: 200px;max-height: 320px;" />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdPelicula">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdPelicula">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdPelicula">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
